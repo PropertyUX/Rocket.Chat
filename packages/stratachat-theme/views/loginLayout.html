@@ -1,0 +1,15 @@
+<template name="scLoginLayout">
+	<section class="rc-old full-page color-tertiary-font-color" style="background-image: url({{bgUrl}})">
+		<div class="wrapper">
+			{{> loginHeader }}
+			{{> Template.dynamic template=center}}
+			{{ > loginFooter }}
+			{{ > scWelcome }}
+			<div class="terms">
+				<p>
+					By proceeding you agree to our <a target="_blank" href="https://www.strata.chat/privacy">Privacy Policy</a> and <a target="_blank" href="https://www.strata.chat/terms">Terms of Service</a>.
+				</p>
+			</div>
+		</div>
+	</section>
+</template>

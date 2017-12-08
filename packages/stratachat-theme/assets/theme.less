@@ -1,0 +1,178 @@
+
+// Hide unwanted elements
+.powered-by,
+.full-page .login-terms,
+.full-page footer {
+  display: none;
+}
+
+// Login landing
+@media all and (max-height: 700px) {
+  .full-page {
+    display: block;
+  }
+}
+.full-page {
+  // background image loaded by content/{instance}/{instance}.less
+  background-position: center;
+  background-size: cover;
+  background-color: @tertiary-background-color;
+  color: @primary-font-color;
+  height: 100%;
+  overflow-y: scroll;
+  // background-position: center 10%;
+  // background-size: 150%;
+  .terms {
+    max-width: 520px;
+    padding: 20px;
+    line-height: 1.4rem;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+    a {
+      color: @primary-action-color;
+    }
+  }
+  .sc-welcome {
+    background: @tertiary-background-color;
+    text-align: left;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 20px;
+    a {
+      color: @primary-action-color;
+    }
+    h2 {
+      text-align: center;
+      font-weight: 200;
+      font-size: 1.7em;
+      margin: 0 0 12px;
+    }
+    ul {
+      padding-left: 20px;
+      line-height: 1.5rem;
+      list-style: inherit;
+      margin: 12px 0;
+    }
+    li {
+      margin: 0 0 6px;
+    }
+  }
+	.sc-welcome p:last-child,
+	.sc-welcome + .terms p {
+		margin-bottom: 0;
+	}
+  #login-card:before,
+  #login-card:after {
+    display: table;
+    content: " ";
+    clear: both;
+  }
+  #login-card {
+    border-radius: 0;
+    box-shadow: none;
+    padding: 20px;
+    margin: 0 auto;
+    clear: both;
+    .submit {
+      margin: 12px 0 0 0;
+      .button {
+        width: 100%;
+        margin: 0;
+      }
+    }
+    .register {
+      margin-top: 12px;
+    }
+    .forgot-password {
+      margin-top: 2px;
+    }
+  }
+}
+@media all and (max-height: 800px), all and (max-width: 500px) {
+  .full-page .sc-welcome {
+    display: none;
+  }
+}
+@media all and(min-width: 501px) {
+  #login-card .submit {
+    display: inline-block;
+    float: left;
+    width: 50%;
+  }
+  #login-card .register,
+  #login-card .forgot-password {
+    float: right;
+  }
+}
+
+// User info & avatars
+.flex-tab .user-view {
+  .about {
+    margin-bottom: 0;
+  }
+  .thumb {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    padding: 0;
+    float: right;
+    cursor: auto;
+  }
+  .info {
+    margin-right: 120px;
+    min-height: 160px;
+    padding: 20px;
+    > &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+// Content pages (home etc)
+.page-container .content p a {
+  color: @primary-action-color;
+}
+
+// Side nav
+.side-nav .rooms-list {
+	ul li a {
+		padding: 10px 25px 10px 12px;
+	}
+	h3, button {
+		padding-left: 12px;
+	}
+	ul li, h3, button {
+		transition: background-color .4s linear;
+		text-shadow: none;
+		border-radius: 20px 0 0 20px;
+	}
+}
+.side-nav ul .opt {
+  top: 10px;
+}
+.side-nav .header {
+  color: @primary-font-color;
+}
+.side-nav .footer {
+  text-align: center;
+}
+.side-nav .footer img {
+  max-height: 50px;
+}
+
+// Registration Form
+#cuf_form {
+	margin-bottom: 1em;
+	text-align: left;
+	h3 { text-transform: none; }
+	.help-block {
+		color: @error-color;
+		margin-left: 8px;
+		margin-top: 3px;
+		display: block;
+		font-size: 12px;
+	}
+	fieldset legend { margin-bottom: 1em; }
+	// .checkbox > label { display: none	}
+}
