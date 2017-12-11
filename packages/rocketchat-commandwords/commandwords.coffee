@@ -3,19 +3,34 @@ class CommandWords
 
 		if _.trim message.html
 
-			# NOTE : because something else in the rendering pipeline may have already altered the HTML
-			# (e.g. converting @user to a mention-link), we look at the original message.msg but ultimately
-			# replace the HTML, overwriting any markup previously added
-			message.html = message.msg.replace /\[\[([^@\]]*)@?([^\]]*)]]/gi, (match, text, recipient) ->
+			debugger
 
-				# note this will only work for currently-online users
+			# Because Autolinker or Mentions will alter any occurrences of 'message@user',
+			# we need to look at the original message text (message.msg)
+			# and replace message.html with our markup. NOTE: any other markup
+			# will be overwritten, but this is currently unavoidable.
+			replaced = message.msg.replace /\[\[([^@\]]*)@([^\]]+)]]/gi, (match, text, recipient) ->
+
+				# note we can only send to online users
 				if recipient and Meteor.users.findOne { username: recipient }
-					return "<span class=\"command-word\" data-recipient=\"#{recipient}\">#{text}</span>"
+				  return "<span class=\"command-word\" data-recipient=\"#{recipient}\">#{text}</span>"
 				else
 					return "<span class=\"command-word\">#{text}</span>"
 
+			if (replaced != message.msg)
+				message.html = replaced
+
+			# A commandword without a recipient should make it through the renderMessage 
+			# pipeline unharmed, in which case we can directly inject our markup into the HTML
+			replaced = message.html.replace /\[\[([^@\]]*)]]/gi, (match, text) ->
+
+				return "<span class=\"command-word\">#{text}</span>"
+
+			message.html = replaced if replaced != message.html
+
 		return message
 
+debugger
 RocketChat.callbacks.add 'renderMessage', CommandWords
 
 Template.room.events 'click .command-word': (event, instance) ->
@@ -40,6 +55,6 @@ Template.room.events 'click .command-word': (event, instance) ->
 		Meteor.call 'sendMessage', { _id: Random.id(), rid: instance.data._id, msg: event.target.innerText }
 
 	# focus the messagebox
-	instance.find('.input-message').focus()
+	$('.input-message').focus()
 
 	return
